@@ -1,11 +1,13 @@
 import styles from "./styles/Home.module.css";
-import { useAddress, useDisconnect } from "@thirdweb-dev/react";
+import { useAddress, useDisconnect, useMetamask, useWalletConnect } from "@thirdweb-dev/react";
 import type { NextPage } from "next";
 import { useState } from "react";
 import { useMagic } from "@thirdweb-dev/react/evm/connectors/magic";
 
 const Home: NextPage = () => {
   const address = useAddress(); // Hook to grab the currently connected user's address.
+  const connectWithWalletConnect = useWalletConnect(); // Hook to connect with WalletConnect.
+  const connectWithMetamask = useMetamask(); // Hook to connect with MetaMask.
   const connectWithMagic = useMagic(); // Hook to connect with Magic Link.
   const disconnectWallet = useDisconnect(); // Hook to disconnect from the connected wallet.
 
@@ -83,6 +85,52 @@ const Home: NextPage = () => {
               >
                 Login
               </a>
+            </div>
+            <div
+              style={{
+                height: 15,
+              }}
+            >
+            </div>
+            <div
+              style={{
+                width: 600,
+                maxWidth: "90vw",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexDirection: "row",
+                gap: 16,
+              }}
+            >
+              <button 
+                className={styles.mainButton} 
+                onClick={connectWithWalletConnect}>
+                  Connect using WalletConnect
+              </button>
+            </div>
+            <div
+              style={{
+                height: 15,
+              }}
+            >
+            </div>
+            <div
+              style={{
+                width: 600,
+                maxWidth: "90vw",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexDirection: "row",
+                gap: 16,
+              }}
+            >
+              <button 
+                className={styles.mainButton} 
+                onClick={connectWithMetamask}>
+                  Connect using MetaMask wallet
+              </button>
             </div>
           </>
         )}

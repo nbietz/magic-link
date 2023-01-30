@@ -1,6 +1,10 @@
 import React from "react";
 import type { AppProps } from "next/app";
-import { ChainId, ThirdwebProvider } from "@thirdweb-dev/react";
+import { 
+  ChainId, 
+  ThirdwebProvider, 
+  WalletConnectConnectorType,
+  InjectedConnectorType } from "@thirdweb-dev/react";
 import "./styles/globals.css";
 import Head from "next/head";
 import ThirdwebGuideFooter from "../components/ThirdwebGuideFooter";
@@ -13,13 +17,31 @@ const magicLinkConnector = new MagicConnector({
   options: {
     apiKey: process.env.NEXT_PUBLIC_MAGIC_LINK_API_KEY as string,
     rpcUrls: {
-      [ChainId.Mumbai]: "https://rpc-mumbai.maticvigil.com",
-    },
-  },
+      [ChainId.Mumbai]: "https://rpc-mumbai.maticvigil.com"
+    }
+  }
 });
 
+const metamaskConnector: InjectedConnectorType = {
+  name: "metamask",
+  options: {
+    shimDisconnect: true
+  }
+};
+
+const walletConnector: WalletConnectConnectorType = {
+  name: "walletConnect",
+  options: { 
+    chainId: 80001
+  }
+};
+
 // Array of wallet connectors you want to use for your dApp.
-const connectors = [magicLinkConnector];
+const  connectors = [
+  metamaskConnector,
+  walletConnector,
+  magicLinkConnector
+];
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
